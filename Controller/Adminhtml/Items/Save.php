@@ -13,10 +13,11 @@ class Save extends \KiwiCommerce\Testimonials\Controller\Adminhtml\Items
                     try{
                         $uploaderFactory = $this->uploaderFactory->create(['fileId' => 'profile_pic']);
                         $uploaderFactory->setAllowedExtensions(['jpg', 'jpeg', 'gif', 'png']);
+                        $uploaderFactory->setAllowCreateFolders(true);
                         $uploaderFactory->setAllowRenameFiles(true);
-                        $uploaderFactory->setFilesDispersion(true);
+                        $uploaderFactory->setFilesDispersion(false);
                         $mediaDirectory = $this->filesystem->getDirectoryRead($this->directoryList::MEDIA);
-                        $destinationPath = $mediaDirectory->getAbsolutePath('kiwicommerce/testimonials');
+                        $destinationPath = $mediaDirectory->getAbsolutePath('kiwicommerce/testimonials/');
                         $result = $uploaderFactory->save($destinationPath);
                         if (!$result) {
                             throw new LocalizedException(
@@ -24,7 +25,7 @@ class Save extends \KiwiCommerce\Testimonials\Controller\Adminhtml\Items
                             );
                         }
                         
-                        $imagePath = 'kiwicommerce/testimonials'.$result['file'];
+                        $imagePath = 'kiwicommerce/testimonials/'.$result['file'];
                         $data['profile_pic'] = $imagePath;
                     } catch (\Exception $e) {
                     }
