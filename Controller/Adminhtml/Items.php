@@ -35,6 +35,9 @@ abstract class Items extends \Magento\Backend\App\Action
      * @var \KiwiCommerce\Testimonials\Model\TestimonialFactory
      */
     protected $testimonialFactory;
+    protected $directoryList;
+    protected $_file;
+    protected $adminSession;
 
     /**
      * Initialize Group Controller
